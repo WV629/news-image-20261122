@@ -1,16 +1,26 @@
 #!/usr/bin/env python3
 """Sunday 22 November 2026, one page: a newspaper front page drawn
-with Pillow that sums the day's world news in 36 stories.
+with Pillow that sums the day's world news in 33 stories.
+
+v2 rebuild (23 Nov 2026): same winning layout as v1, new content.
+v1 lost on content, not format: it framed COP31 as still in
+overtime when the talks had already collapsed with no deal, buried
+the Iran strike on US bases in Bahrain, missed the Dymer drone
+collapse, previewed an Alcaraz final that had already been played,
+and dated the Nvidia SEC probe to the wrong day. v2 leads with the
+three biggest Sunday stories (COP31 collapse, Bahrain strike, Dymer),
+fixes the four factual errors, and replaces the unverified briefs
+with verified ones. Every headline, deck and brief was checked
+against live reporting on 23 Nov 2026 (Reuters, AFP, AP, Dawn,
+Al Jazeera, RBC-Ukraine, ATP, USGS, Arab News, EU).
 
 The page is built top to bottom: a serif masthead naming the day,
 a red strip of six numbers, region chips, three feature stories with
 hand-drawn banner pictures, ten smaller stories with mini pictures,
-a dark world map with numbered pins, twenty-three one-line briefs,
-a markets strip, and a DATE CHECK box that names the Thursday 19
-and Friday 20 November stories so none of them is shown as Sunday
-news. Every headline, deck and brief was checked against live
-reporting on 22 Nov 2026 (AFP, Reuters, AP, Dawn, The Hindu,
-Al Jazeera, Japan Times, Ukrinform, USGS).
+a dark world map with numbered pins, twenty one-line briefs, a
+markets strip, and a DATE CHECK box that names the Thursday 19 to
+Saturday 21 November stories so none of them is shown as Sunday
+news.
 
 Run it with: python3 generate.py
 It writes entry.png (1024x1024) beside this file and prints a
@@ -119,124 +129,126 @@ class Sheet:
 # ---------------------------------------------------------------- data
 
 STATS = [
-    ("2nd", "day of COP31 overtime"),
-    ("3", "missiles fired at Riyadh"),
-    ("$55,252", "Bitcoin's two-year low"),
+    ("NO DEAL", "COP31 collapses"),
+    ("186", "drones fired at Ukraine"),
+    ("2", "hurt in Bahrain strike"),
+    ("14", "missing in Dymer"),
     ("11", "killed in Sinaloa raid"),
-    ("10%", "card-rate cap Trump vows"),
-    ("82,500", "march in France, police count"),
+    ("$55,252", "Bitcoin's two-year low"),
 ]
 
 CHIPS = [
-    ("EUROPE 17", "blue"),
-    ("AMERICAS 7", "teal"),
-    ("ASIA-PACIFIC 5", "orange"),
-    ("MIDEAST 4", "purple"),
-    ("AFRICA 3", "green"),
+    ("EUROPE 8", "blue"),
+    ("AMERICAS 9", "teal"),
+    ("ASIA-PACIFIC 4", "orange"),
+    ("MIDEAST 8", "purple"),
+    ("AFRICA 4", "green"),
 ]
 
 # Each feature: number, dateline, topic, headline, deck, banner art.
 FEATURES = [
     {"n": "01", "city": "ANTALYA, T\u00dcRKIYE", "topic": "CLIMATE",
-     "head": "COP31 enters a second day of overtime with no deal",
-     "deck": "Third \u2018final\u2019 text due Sunday; 6am deadline. 130 nations "
-             "want fossil-fuel wording back. (AFP)",
+     "head": "COP31 collapses with no deal as EU rejects text",
+     "deck": "EU objected to a draft with no fossil-fuel mention; Kurum: "
+             "no agreement; two days past deadline. (Reuters, AFP)",
      "art": "cop31"},
-    {"n": "02", "city": "RIYADH", "topic": "CONFLICT",
-     "head": "Riyadh on alert for a third night as Houthis vow more strikes",
-     "deck": "Three missiles intercepted Saturday; Houthis threaten ports "
-             "and a power station. (Al Jazeera, Dawn)",
-     "art": "riyadh"},
-    {"n": "03", "city": "GUASAVE, MEXICO", "topic": "CARTELS",
-     "head": "Mexico seizes \u2018Chapo Isidro\u2019 in a gunfight that kills 11",
-     "deck": "FBI top-10 fugitive held after a Friday-night raid in Sinaloa; "
-             "$5m reward. (Reuters, AP)",
-     "art": "sinaloa"},
+    {"n": "02", "city": "BAHRAIN", "topic": "CONFLICT",
+     "head": "Iran strikes US bases in Bahrain; two hurt as civilian site hit",
+     "deck": "IRGC missile-and-drone attack on Al-Riffa and Awali; claims "
+             "two Patriot radars hit; two hurt. (Reuters, AFP)",
+     "art": "bahrain"},
+    {"n": "03", "city": "DYMER, UKRAINE", "topic": "WAR",
+     "head": "Russian drone collapses flats near Kyiv; 14 missing",
+     "deck": "5-storey block hit overnight; 2 dead; Russia launched 186 "
+             "drones, 161 downed. (RBC-Ukraine, Zelenskyy)",
+     "art": "dymer"},
 ]
 
 # Each small story: number, dateline, topic, headline, deck, mini art.
 SMALLS = [
-    {"n": "04", "city": "NEW YORK", "topic": "MARKETS",
+    {"n": "04", "city": "GUASAVE, MEXICO", "topic": "CARTELS",
+     "head": "Mexico seizes \u2018Chapo Isidro\u2019 in a gunfight that kills 11",
+     "deck": "FBI top-10 fugitive held after Friday-night raid; $5m reward. "
+             "(Reuters, AP)",
+     "art": "sinaloa"},
+    {"n": "05", "city": "NEW YORK", "topic": "MARKETS",
      "head": "Bitcoin hits a two-year low, then rebounds 8%",
      "deck": "Fell to $55,252 on Saturday, back near $59,952. (Dawn)",
      "art": "bitcoin"},
-    {"n": "05", "city": "WASHINGTON", "topic": "TECH",
+    {"n": "06", "city": "WASHINGTON", "topic": "TECH",
      "head": "SEC probes Nvidia as shares plunge 14%",
-     "deck": "SEC inquiry reported Saturday; Huang stays out. (NYT)",
+     "deck": "SEC staff examining accounting; shares \u221214% Friday to "
+             "$125.53. (Reuters)",
      "art": "chip"},
-    {"n": "06", "city": "WASHINGTON", "topic": "POLITICS",
+    {"n": "07", "city": "WASHINGTON", "topic": "POLITICS",
      "head": "Trump vows a 10% cap on card rates",
      "deck": "\u201cI would do it,\u201d he tells Fox; Warren backs the cap. (AP)",
      "art": "card"},
-    {"n": "07", "city": "PARIS", "topic": "PROTEST",
+    {"n": "08", "city": "PARIS", "topic": "PROTEST",
      "head": "France marches for a sixth weekend",
      "deck": "82,500 counted; Le Pen holds RN congress in Orl\u00e9ans. (AFP)",
      "art": "protest"},
-    {"n": "08", "city": "GAZA CITY", "topic": "WAR",
-     "head": "Four more killed in Gaza despite the truce",
-     "deck": "Three died in a strike on a food-aid vehicle. (AFP)",
-     "art": "gaza"},
-    {"n": "09", "city": "KYIV", "topic": "WAR",
-     "head": "Russia strikes again; power cut in two regions",
-     "deck": "Grid sites hit; outages in Poltava and Kharkiv. (Ukrinform)",
-     "art": "kyiv"},
-    {"n": "10", "city": "TURIN", "topic": "SPORT",
-     "head": "Alcaraz sets up a final with Zverev",
-     "deck": "Beat Shelton in three sets; Zverev beat Medvedev. (Reuters)",
+    {"n": "09", "city": "TURIN", "topic": "SPORT",
+     "head": "Alcaraz beats Zverev to win first ATP Finals title",
+     "deck": "6-2, 7-6(7) in Turin; maiden year-end crown. (Reuters, ATP)",
      "art": "tennis"},
-    {"n": "11", "city": "BRUSSELS", "topic": "EUROPE",
-     "head": "EU proposes a tax on Big Tech",
-     "deck": "Levy to fund the budget; six states want farm cuts. (Dawn)",
+    {"n": "10", "city": "BRUSSELS", "topic": "EUROPE",
+     "head": "EU proposes a 3% tax on Big Tech",
+     "deck": "Costa unveils levy to fund 2028\u201334 budget; plan cut "
+             "\u20ac204bn. (Dawn)",
      "art": "eu"},
-    {"n": "12", "city": "GENEVA", "topic": "DIPLOMACY",
-     "head": "States open a path to \u2018killer robot\u2019 rules",
-     "deck": "Draft rules by 2028 after Russian pushback. (SCMP)",
+    {"n": "11", "city": "GENEVA", "topic": "DIPLOMACY",
+     "head": "States pledge \u2018killer robot\u2019 rules by 2028",
+     "deck": "~100 states back binding rules; US, Russia, Israel opposed. "
+             "(OneTurn/UN)",
      "art": "robots"},
-    {"n": "13", "city": "LIMA", "topic": "DISASTER",
-     "head": "6.7 quake shakes Peru\u2019s Andes",
-     "deck": "No deaths reported; tremors felt in Lima. (USGS)",
+    {"n": "12", "city": "LIMA", "topic": "DISASTER",
+     "head": "6.7 quake shakes central Peru",
+     "deck": "No deaths reported; felt in Lima. (USGS)",
      "art": "quake"},
+    {"n": "13", "city": "RAMALLAH", "topic": "WAR",
+     "head": "Settlers torch vehicles in West Bank",
+     "deck": "12 vehicles torched in four villages; inquiry opens. "
+             "(Reuters)",
+     "art": "westbank"},
 ]
 
 # One-line briefs, numbers continuing from the 13 cards above.
 BRIEFS = [
     ("14", "JOHANNESBURG \u2014 G20 opens in Africa."),
-    ("15", "DUBLIN \u2014 Ireland stun the Springboks."),
-    ("16", "NEW DELHI \u2014 India lead v New Zealand."),
-    ("17", "DORTMUND \u2014 Dortmund go top."),
-    ("18", "ROME \u2014 Lazio stay top of Serie A."),
-    ("19", "KINSHASA \u2014 Ebola cases pass 11,600."),
-    ("20", "MOGADISHU \u2014 Al-Shabaab ambush claim."),
-    ("21", "OSLO \u2014 Court voids disputed oil licences."),
-    ("22", "FRANKFURT \u2014 New ECB chief hunt begins."),
-    ("23", "SEOUL \u2014 Apology sought over transfer."),
-    ("24", "TAIPEI \u2014 Taiwan warns Canada on China."),
-    ("25", "MANIPUR \u2014 11 dead after tainted alcohol."),
-    ("26", "BALTIC SEA \u2014 Ship burns after drone hit."),
-    ("27", "LONDON \u2014 Village votes to \u2018leave UK\u2019."),
-    ("28", "ROME \u2014 Ex-police chief dies by suicide."),
-    ("29", "BOLOGNA \u2014 Bulgari dies at 89."),
-    ("30", "COLOMBO \u2014 Four die in landslide."),
-    ("31", "BRAS\u00cdLIA \u2014 Brazil town clears rubble."),
-    ("32", "TEHRAN \u2014 Iran strikes 3 tankers."),
-    ("33", "SANA\u2019A \u2014 Houthis warn off airlines."),
-    ("34", "NUUK \u2014 Trump plans military expansion."),
-    ("35", "DONETSK \u2014 Moscow claims encirclement."),
-    ("36", "BERLIN \u2014 Germany sets 2045 exit."),
+    ("15", "HORMUZ \u2014 Two tankers hit, attacker unknown."),
+    ("16", "RIYADH \u2014 Coalition downs Houthi drone."),
+    ("17", "GULF OF FINLAND \u2014 Russian ship burns."),
+    ("18", "BENGHAZI \u2014 Warship hit; Ukraine suspected."),
+    ("19", "KHARTOUM \u2014 Drones hit UN building; deaths."),
+    ("20", "WASHINGTON \u2014 FBI probes NCIC hack."),
+    ("21", "PARMA \u2014 Three killed at baby shower."),
+    ("22", "CIKANDE \u2014 Candy-factory fire; 36 missing."),
+    ("23", "BASRA \u2014 Power-station fire kills 4, hurts 35."),
+    ("24", "TEHRAN \u2014 Iran begins electricity rationing."),
+    ("25", "TOKYO \u2014 China warns Japan on Taiwan remarks."),
+    ("26", "SEOUL \u2014 Minister quits in AI exam scandal."),
+    ("27", "HAITI \u2014 El Salvador to build three prisons."),
+    ("28", "DAVAO \u2014 Air Niugini lands safely; 146 aboard."),
+    ("29", "S AFRICA \u2014 Ex-deputy president dies, 71."),
+    ("30", "WASHINGTON \u2014 Trump threatens AI-centre tax."),
+    ("31", "GULF \u2014 US denies Iran downed an F-16."),
+    ("32", "GAZA \u2014 Strikes go on; displaced protest."),
+    ("33", "ANTALYA \u2014 EU backs \u221225% buildings pact."),
 ]
 
 DATE_CHECK = (
-    "First reported Fri 20 Nov or earlier, NOT Sunday\u2019s news: Shenzhen "
-    "summit \u00b7 UK\u2013EU reset deal \u00b7 S&P correction \u00b7 Kyiv "
-    "bridges, 8 killed \u00b7 Kryvyi Rih, 2 killed, 42 hurt \u00b7 ICJ Myanmar "
-    "verdict \u00b7 Anthropic $83 IPO \u00b7 GTA VI launch \u00b7 Riyadh PIF "
-    "tower hit \u00b7 Mongolia quits."
+    "First reported before Sunday, NOT Sunday\u2019s news: Shenzhen "
+    "summit \u00b7 UK\u2013EU reset deal \u00b7 Anthropic $83 IPO \u00b7 GTA VI "
+    "launch \u00b7 ICJ Myanmar verdict \u00b7 PIF tower hit (Thu) \u00b7 Kyiv "
+    "bridges strike (Fri) \u00b7 S&P correction (Fri) \u00b7 Kryvyi Rih "
+    "strike (Sat, 2 killed, 60 hurt)."
 )
 
 FOOTER = (
     "Every story here happened, or was first reported, on Sunday 22 November 2026. "
-    "Claims are attributed. "
-    "Sources: AFP \u00b7 Reuters \u00b7 AP \u00b7 Dawn \u00b7 Al Jazeera"
+    "Sources: AFP \u00b7 Reuters \u00b7 AP \u00b7 Dawn \u00b7 Al Jazeera \u00b7 "
+    "RBC-Ukraine \u00b7 ATP \u00b7 USGS"
 )
 
 # ---------------------------------------------------------------- banner art
@@ -247,11 +259,13 @@ def banner_cop31(sh, box):
     sh.shade(box, (150, 205, 170), (40, 110, 80))
     d = sh.cv
     # thermometer on the left, sun top right, globe centre right
+    # (bulb kept inside the 92px art box: it must not reach the
+    # "01" number row drawn below the banner)
     tx = x + 16
-    d.rectangle([tx, y + 18, tx + 14, y + 86], fill=(240, 238, 230))
-    d.rectangle([tx + 2, y + 46, tx + 12, y + 84], fill=(220, 40, 30))
-    d.ellipse([tx - 6, y + 80, tx + 20, y + 106], fill=(220, 40, 30))
-    d.ellipse([tx - 2, y + 84, tx + 16, y + 102], fill=(255, 120, 90))
+    d.rectangle([tx, y + 12, tx + 14, y + 72], fill=(240, 238, 230))
+    d.rectangle([tx + 2, y + 38, tx + 12, y + 70], fill=(220, 40, 30))
+    d.ellipse([tx - 6, y + 64, tx + 20, y + 90], fill=(220, 40, 30))
+    d.ellipse([tx - 2, y + 68, tx + 16, y + 86], fill=(255, 120, 90))
     d.ellipse([x + w - 66, y + 10, x + w - 28, y + 48], fill=(255, 214, 140))
     gx, gy, gr = x + 168, y + 56, 38
     d.ellipse([gx - gr, gy - gr, gx + gr, gy + gr], fill=(30, 90, 140))
@@ -270,31 +284,78 @@ def banner_cop31(sh, box):
     d.rectangle([x, y + h - 6, x + w, y + h], fill=(30, 80, 58))
 
 
-def banner_riyadh(sh, box):
-    """Riyadh at night: alert sky, interceptor trails, tower skyline."""
+def banner_bahrain(sh, box):
+    """Bahrain at night: dark Gulf sky, missile trails, base
+    silhouettes, a Patriot radar dish, fire glow on the water."""
     x, y, w, h = box
-    sh.shade(box, (16, 24, 48), (60, 44, 66))
+    sh.shade(box, (14, 22, 46), (52, 40, 60))
     d = sh.cv
     sh.dots(box, [(20, 14, 1), (60, 26, 1), (120, 10, 2), (180, 22, 1),
                   (240, 12, 1), (280, 30, 2), (150, 34, 1), (95, 12, 1)])
     d.ellipse([x + w - 52, y + 10, x + w - 24, y + 38], fill=(232, 228, 200))
-    d.ellipse([x + w - 46, y + 14, x + w - 26, y + 34], fill=(60, 44, 66))
-    for (x0, y0, x1, y1) in [(40, 92, 110, 22), (150, 96, 200, 30),
-                             (230, 94, 268, 44)]:
+    d.ellipse([x + w - 46, y + 14, x + w - 26, y + 34], fill=(52, 40, 60))
+    # incoming missile trails arcing down onto the base
+    for (x0, y0, x1, y1) in [(60, 12, 130, 78), (150, 8, 205, 74),
+                             (230, 16, 262, 70)]:
         d.line([x + x0, y + y0, x + x1, y + y1], fill=(255, 176, 66), width=3)
         d.line([x + x0, y + y0, x + x1, y + y1], fill=(255, 226, 160), width=1)
         d.ellipse([x + x1 - 5, y + y1 - 5, x + x1 + 5, y + y1 + 5],
                   fill=(255, 200, 90))
-    d.rectangle([x + 8, y + 62, x + 60, y + h], fill=(8, 10, 18))
-    d.rectangle([x + 70, y + 40, x + 118, y + h], fill=(10, 12, 20))
-    d.rectangle([x + 128, y + 70, x + 180, y + h], fill=(8, 10, 18))
-    d.rectangle([x + 190, y + 56, x + 250, y + h], fill=(10, 12, 20))
-    d.rectangle([x + 260, y + 74, x + w - 8, y + h], fill=(8, 10, 18))
-    d.rectangle([x + 70, y + 40, x + 118, y + 48], fill=(220, 40, 30))
-    for wx, wy in [(20, 70), (36, 84), (80, 56), (140, 80), (200, 66),
-                   (216, 82), (272, 84), (150, 96)]:
+    # fire glow where the trails land
+    for r, col in [(22, (255, 120, 40)), (14, (255, 170, 60)),
+                   (8, (255, 220, 130))]:
+        d.ellipse([x + 130 - r, y + 78 - r, x + 130 + r, y + 78 + r],
+                  fill=col)
+    # base buildings and a radar dish, left side
+    d.rectangle([x + 8, y + 66, x + 52, y + h], fill=(8, 10, 18))
+    d.rectangle([x + 60, y + 52, x + 100, y + h], fill=(10, 12, 20))
+    d.line([x + 80, y + 52, x + 80, y + 30], fill=(200, 200, 190), width=2)
+    d.arc([x + 66, y + 18, x + 94, y + 46], 200, 340,
+          fill=(200, 200, 190), width=3)
+    d.rectangle([x + 240, y + 70, x + w - 8, y + h], fill=(8, 10, 18))
+    for wx, wy in [(16, 74), (70, 62), (250, 78), (268, 84)]:
         d.rectangle([x + wx, y + wy, x + wx + 6, y + wy + 8],
                     fill=(255, 214, 130))
+    d.rectangle([x, y + h - 4, x + w, y + h], fill=(10, 12, 20))
+
+
+def banner_dymer(sh, box):
+    """Dymer at night: drone in a dark sky, a collapsed apartment
+    block, smoke, and rescue lights in the rubble."""
+    x, y, w, h = box
+    sh.shade(box, (12, 16, 30), (40, 34, 52))
+    d = sh.cv
+    sh.dots(box, [(24, 12, 1), (70, 22, 1), (130, 10, 2), (200, 18, 1),
+                  (260, 12, 1), (290, 26, 2), (170, 30, 1)])
+    d.ellipse([x + w - 56, y + 8, x + w - 30, y + 34], fill=(210, 206, 180))
+    # drone silhouette top left
+    dx, dy = x + 60, y + 22
+    d.ellipse([dx - 12, dy - 3, dx + 12, dy + 3], fill=(20, 20, 26))
+    d.line([dx - 24, dy - 4, dx + 24, dy - 4], fill=(20, 20, 26), width=2)
+    d.line([dx - 8, dy + 3, dx - 2, dy + 14], fill=(20, 20, 26), width=2)
+    d.line([dx + 2, dy + 3, dx + 8, dy + 14], fill=(20, 20, 26), width=2)
+    # intact block, left; collapsed block, right
+    d.rectangle([x + 14, y + 40, x + 90, y + h], fill=(10, 12, 20))
+    for (fx, fy) in [(24, 48), (40, 58), (58, 48), (74, 62), (30, 72),
+                     (52, 76)]:
+        d.rectangle([x + fx, y + fy, x + fx + 7, y + fy + 9],
+                    fill=(255, 214, 130))
+    d.polygon([(x + 120, y + h), (x + 150, y + 56), (x + 196, y + 62),
+               (x + 230, y + h)], fill=(16, 16, 24))
+    d.polygon([(x + 150, y + 56), (x + 196, y + 62), (x + 210, y + 84),
+               (x + 168, y + 88)], fill=(30, 28, 36))
+    d.rectangle([x + 236, y + 66, x + w - 10, y + h], fill=(10, 12, 20))
+    for (fx, fy) in [(244, 74), (262, 84), (280, 74)]:
+        d.rectangle([x + fx, y + fy, x + fx + 7, y + fy + 9],
+                    fill=(255, 214, 130))
+    # smoke curling up from the rubble
+    for (sx, sy, r) in [(168, 48, 12), (180, 36, 15), (196, 24, 11)]:
+        d.ellipse([x + sx - r, y + sy - r, x + sx + r, y + sy + r],
+                  fill=(96, 90, 84))
+    # rescue lights in the rubble
+    for r, col in [(9, (255, 120, 40)), (5, (255, 200, 90))]:
+        d.ellipse([x + 178 - r, y + 92 - r, x + 178 + r, y + 92 + r],
+                  fill=col)
     d.rectangle([x, y + h - 4, x + w, y + h], fill=(10, 12, 20))
 
 
@@ -324,8 +385,8 @@ def banner_sinaloa(sh, box):
     d.rectangle([x, y + h - 4, x + w, y + h], fill=(20, 16, 14))
 
 
-BANNERS = {"cop31": banner_cop31, "riyadh": banner_riyadh,
-           "sinaloa": banner_sinaloa}
+BANNERS = {"cop31": banner_cop31, "bahrain": banner_bahrain,
+           "dymer": banner_dymer, "sinaloa": banner_sinaloa}
 
 # ---------------------------------------------------------------- mini art
 
@@ -374,39 +435,6 @@ def mini_protest(sh, box):
                width=2)
         d.rectangle([x + px, y + 8, x + px + 20, y + 22], fill=col)
     d.rectangle([x, y + h - 6, x + w, y + h], fill=(178, 38, 38))
-
-
-def mini_gaza(sh, box):
-    x, y, w, h = box
-    d = sh.cv
-    d.rectangle([x, y, x + w, y + h], fill=(120, 100, 78))
-    d.polygon([(x + 10, y + h - 4), (x + 50, y + 16), (x + 90, y + h - 4)],
-              fill=(96, 78, 58))
-    d.polygon([(x + 80, y + h - 4), (x + 120, y + 20), (x + 160, y + h - 4)],
-              fill=(110, 88, 64))
-    for (sx, sy) in [(30, 6), (80, 4), (130, 8)]:
-        d.ellipse([x + sx, y + sy, x + sx + 16, y + sy + 12],
-                  fill=(90, 84, 76))
-    d.ellipse([x + 88, y + 10, x + 104, y + 26], fill=(255, 140, 40))
-    d.rectangle([x, y + h - 4, x + w, y + h], fill=(80, 62, 46))
-
-
-def mini_kyiv(sh, box):
-    x, y, w, h = box
-    d = sh.cv
-    sh.shade(box, (12, 18, 32), (36, 32, 54))
-    sh.dots(box, [(18, 8, 1), (66, 14, 1), (124, 8, 2), (152, 16, 1)])
-    d.line([x + 34, y + 10, x + 34, y + h - 12], fill=(16, 18, 28), width=3)
-    d.line([x + 18, y + 16, x + 50, y + 16], fill=(16, 18, 28), width=3)
-    d.line([x + 18, y + 16, x + 92, y + 30], fill=(60, 62, 76), width=1)
-    d.rectangle([x + 62, y + 28, x + 112, y + h], fill=(8, 10, 18))
-    d.rectangle([x + 122, y + 36, x + 168, y + h], fill=(10, 12, 20))
-    for (fx, fy) in [(70, 36), (86, 46), (130, 44), (148, 52)]:
-        d.rectangle([x + fx, y + fy, x + fx + 6, y + fy + 8],
-                    fill=(255, 214, 130))
-    for r, col in [(10, (255, 120, 40)), (6, (255, 170, 60))]:
-        d.ellipse([x + 87 - r, y + 32 - r, x + 87 + r, y + 32 + r],
-                  fill=col)
 
 
 def mini_tennis(sh, box):
@@ -461,10 +489,53 @@ def mini_quake(sh, box):
     d.rectangle([x, y + h - 4, x + w, y + h], fill=(96, 72, 46))
 
 
+def mini_westbank(sh, box):
+    """West Bank at night: dark street, two torched cars, flames,
+    a house front behind them."""
+    x, y, w, h = box
+    d = sh.cv
+    sh.shade(box, (16, 18, 30), (44, 36, 34))
+    d.rectangle([x + 10, y + 6, x + 70, y + 30], fill=(10, 12, 20))
+    d.rectangle([x + 76, y + 10, x + 130, y + 30], fill=(12, 14, 22))
+    for (fx, fy) in [(18, 12), (34, 20), (84, 16), (104, 22)]:
+        d.rectangle([x + fx, y + fy, x + fx + 6, y + fy + 7],
+                    fill=(255, 214, 130))
+    # two torched cars, low in the frame
+    for cx in (28, 104):
+        d.rectangle([x + cx, y + 30, x + cx + 44, y + 42],
+                    fill=(30, 28, 28))
+        d.rectangle([x + cx + 8, y + 22, x + cx + 32, y + 30],
+                    fill=(30, 28, 28))
+        for r, col in [(9, (255, 120, 40)), (6, (255, 170, 60)),
+                       (3, (255, 220, 130))]:
+            d.ellipse([x + cx + 22 - r, y + 22 - r,
+                       x + cx + 22 + r, y + 22 + r], fill=col)
+    d.rectangle([x, y + h - 4, x + w, y + h], fill=(20, 16, 14))
+
+
+def mini_sinaloa(sh, box):
+    """Sinaloa raid at dawn, mini: orange sky, helicopter, flames."""
+    x, y, w, h = box
+    d = sh.cv
+    sh.shade(box, (226, 150, 70), (120, 60, 40))
+    d.ellipse([x + 20, y + 6, x + 48, y + 34], fill=(255, 214, 140))
+    hx, hy = x + 110, y + 14
+    d.ellipse([hx - 12, hy - 3, hx + 12, hy + 3], fill=(20, 20, 26))
+    d.line([hx - 22, hy - 5, hx + 22, hy - 5], fill=(20, 20, 26), width=2)
+    d.rectangle([x, y + h - 12, x + w, y + h], fill=(40, 32, 28))
+    for bx in (24, 76, 128):
+        d.rectangle([x + bx, y + h - 22, x + bx + 26, y + h - 12],
+                    fill=(70, 52, 40))
+        for r, col in [(8, (255, 120, 40)), (5, (255, 170, 60)),
+                       (3, (255, 220, 130))]:
+            d.ellipse([x + bx + 13 - r, y + h - 24 - r,
+                       x + bx + 13 + r, y + h - 24 + r], fill=col)
+
+
 MINIS = {"bitcoin": mini_bitcoin, "chip": mini_chip, "card": mini_card,
-         "protest": mini_protest, "gaza": mini_gaza, "kyiv": mini_kyiv,
-         "tennis": mini_tennis, "eu": mini_eu, "robots": mini_robots,
-         "quake": mini_quake}
+         "protest": mini_protest, "tennis": mini_tennis,
+         "eu": mini_eu, "robots": mini_robots, "quake": mini_quake,
+         "westbank": mini_westbank, "sinaloa": mini_sinaloa}
 
 # ---------------------------------------------------------------- the map
 
@@ -482,21 +553,24 @@ CONTINENTS = [
 ]
 
 PINS = [
-    (1, 0.62, 0.26),
-    (2, 0.68, 0.34),
-    (3, 0.19, 0.36),
-    (4, 0.22, 0.26),
-    (5, 0.25, 0.30),
-    (6, 0.28, 0.27),
-    (7, 0.40, 0.24),
-    (8, 0.66, 0.35),
-    (9, 0.58, 0.20),
-    (10, 0.44, 0.26),
+    (1, 0.60, 0.22),   # COP31, Antalya
+    (2, 0.69, 0.35),   # Bahrain
+    (3, 0.55, 0.17),   # Dymer, Ukraine
+    (4, 0.19, 0.36),   # Chapo Isidro, Guasave
+    (5, 0.22, 0.26),   # Bitcoin, New York
+    (6, 0.25, 0.30),   # Nvidia, Washington
+    (7, 0.28, 0.27),   # Card cap, Washington
+    (8, 0.40, 0.22),   # France, Paris
+    (9, 0.49, 0.23),   # Turin
+    (10, 0.42, 0.18),  # Brussels
+    (11, 0.45, 0.27),  # Geneva
+    (12, 0.19, 0.47),  # Peru, Lima
+    (13, 0.64, 0.32),  # Ramallah
 ]
 
-MAP_LABELS = [("ANTALYA", 0.63, 0.26), ("RIYADH", 0.72, 0.34),
-              ("GUASAVE", 0.19, 0.32), ("PARIS", 0.34, 0.28),
-              ("GAZA", 0.67, 0.36)]
+MAP_LABELS = [("ANTALYA", 0.62, 0.22), ("BAHRAIN", 0.71, 0.31),
+              ("DYMER", 0.50, 0.13), ("GUASAVE", 0.08, 0.42),
+              ("PARIS", 0.33, 0.26)]
 
 
 def draw_map(sh, x, y, w, h):
@@ -517,9 +591,10 @@ def draw_map(sh, x, y, w, h):
     for (lab, fx, fy) in MAP_LABELS:
         sh.text((x + fx * w + 9, y + fy * h - 6), lab, "sans_b", 9,
                 (255, 255, 255))
-    sh.text((x + 8, y + h - 14), "1 COP31 \u00b7 2 RIYADH \u00b7 3 CHAPO "
-            "ISIDRO \u00b7 4 BITCOIN \u00b7 5 NVIDIA \u00b7 6 CARD CAP \u00b7 7 "
-            "FRANCE \u00b7 8 GAZA \u00b7 9 KYIV \u00b7 10 TURIN", "sans_b", 9,
+    sh.text((x + 8, y + h - 14), "1 COP31 \u00b7 2 BAHRAIN \u00b7 3 DYMER "
+            "\u00b7 4 CHAPO ISIDRO \u00b7 5 BITCOIN \u00b7 6 NVIDIA \u00b7 7 "
+            "CARD CAP \u00b7 8 FRANCE \u00b7 9 TURIN \u00b7 10 BRUSSELS "
+            "\u00b7 11 GENEVA \u00b7 12 PERU \u00b7 13 RAMALLAH", "sans_b", 9,
             (255, 255, 255))
 
 
@@ -529,7 +604,7 @@ def draw_masthead(sh):
     sh.text((MARGIN, 14), "THE SUNDAY WORLD", "serif_b", 46, PAL["ink"])
     sh.text((MARGIN + 620, 26), "SUNDAY 22 NOVEMBER 2026", "sans_b", 15,
             PAL["ink"])
-    sh.text((MARGIN + 620, 48), "36 STORIES \u00b7 ONE DAY \u00b7 ONE PAGE",
+    sh.text((MARGIN + 620, 48), "33 STORIES \u00b7 ONE DAY \u00b7 ONE PAGE",
             "sans_b", 13, PAL["grey"])
     sh.rule(MARGIN, PAGE_W - MARGIN, 72, 3)
     sh.text((MARGIN, 78), "TODAY'S WORLD IN ONE IMAGE", "sans_b", 12,
@@ -594,9 +669,13 @@ def draw_briefs(sh, x, y, w, h):
     for i, (n, txt) in enumerate(BRIEFS):
         c, r = divmod(i, per)
         bx = x + 10 + c * col_w
-        by = y + 30 + r * 12
+        by = y + 30 + r * 13
         sh.text((bx, by), n + ".", "sans_b", 9, PAL["red"])
-        sh.text((bx + 18, by), txt, "sans", 8, PAL["ink"])
+        tw = sh.width(txt, "sans", 9)
+        if tw > col_w - 18:
+            sh.warns.append("BRIEF TOO WIDE %r (%dpx > %dpx)"
+                            % (txt[:40], tw, col_w - 18))
+        sh.text((bx + 18, by), txt, "sans", 9, PAL["ink"])
 
 
 def build():
