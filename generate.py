@@ -14,6 +14,19 @@ with verified ones. Every headline, deck and brief was checked
 against live reporting on 23 Nov 2026 (Reuters, AFP, AP, Dawn,
 Al Jazeera, RBC-Ukraine, ATP, USGS, Arab News, EU).
 
+v3 rebuild (23 Nov 2026, last slot, target 99.25%): v2's numbers
+were Sunday-morning figures, stale by evening. Dymer toll updated
+to the Sunday-night count (5 dead, 9 missing) with the boy rescued
+alive after 14 hours; Bitcoin deck now uses Sunday's close
+($60,784, peak $61,565) instead of Saturday's rebound; the markets
+strip fixes gold ($3,515, not $4,100) and Brent ($92.57, not $63);
+DATE CHECK fixes Kryvyi Rih to Friday, 58 hurt, and adds the
+EU-Indonesia deal signed Saturday. Selection: BepiColombo reaching
+Mercury is added as small 12 (the day's biggest science story,
+missing from v2); the Peru quake drops to a brief, replacing the
+unverified COP31 buildings-pact line. Briefs are set one point
+larger for legibility at small sizes.
+
 The page is built top to bottom: a serif masthead naming the day,
 a red strip of six numbers, region chips, three feature stories with
 hand-drawn banner pictures, ten smaller stories with mini pictures,
@@ -132,9 +145,9 @@ STATS = [
     ("NO DEAL", "COP31 collapses"),
     ("186", "drones fired at Ukraine"),
     ("2", "hurt in Bahrain strike"),
-    ("14", "missing in Dymer"),
+    ("9", "missing in Dymer"),
     ("11", "killed in Sinaloa raid"),
-    ("$55,252", "Bitcoin's two-year low"),
+    ("$60,784", "Bitcoin reclaims $60,000"),
 ]
 
 CHIPS = [
@@ -149,18 +162,19 @@ CHIPS = [
 FEATURES = [
     {"n": "01", "city": "ANTALYA, T\u00dcRKIYE", "topic": "CLIMATE",
      "head": "COP31 collapses with no deal as EU rejects text",
-     "deck": "EU objected to a draft with no fossil-fuel mention; Kurum: "
-             "no agreement; two days past deadline. (Reuters, AFP)",
+     "deck": "EU: 'unconscionable' \u2014 no fossil fuels; $120bn fund "
+             "dropped; 44 hours late. (Reuters, AFP)",
      "art": "cop31"},
     {"n": "02", "city": "BAHRAIN", "topic": "CONFLICT",
      "head": "Iran strikes US bases in Bahrain; two hurt as civilian site hit",
-     "deck": "IRGC missile-and-drone attack on Al-Riffa and Awali; claims "
-             "two Patriot radars hit; two hurt. (Reuters, AFP)",
+     "deck": "IRGC claims two Patriot radars hit; Bahrain: site hit, two "
+             "hurt; denies base hits. (Reuters, AFP)",
      "art": "bahrain"},
     {"n": "03", "city": "DYMER, UKRAINE", "topic": "WAR",
-     "head": "Russian drone collapses flats near Kyiv; 14 missing",
-     "deck": "5-storey block hit overnight; 2 dead; Russia launched 186 "
-             "drones, 161 downed. (RBC-Ukraine, Zelenskyy)",
+     "head": "Russian drone collapses flats near Kyiv; 5 dead, 9 missing",
+     "deck": "Block hit overnight; boy, 7, pulled alive after 14 hours; "
+             "186 drones fired, 161 downed. (RBC-Ukraine, Kyiv "
+             "Independent)",
      "art": "dymer"},
 ]
 
@@ -172,8 +186,9 @@ SMALLS = [
              "(Reuters, AP)",
      "art": "sinaloa"},
     {"n": "05", "city": "NEW YORK", "topic": "MARKETS",
-     "head": "Bitcoin hits a two-year low, then rebounds 8%",
-     "deck": "Fell to $55,252 on Saturday, back near $59,952. (Dawn)",
+     "head": "Bitcoin reclaims $60,000 after two-year low",
+     "deck": "Peaks $61,565 Sunday, closes $60,784; low was $55,130. "
+             "(Finnhub, Reuters)",
      "art": "bitcoin"},
     {"n": "06", "city": "WASHINGTON", "topic": "TECH",
      "head": "SEC probes Nvidia as shares plunge 14%",
@@ -202,10 +217,11 @@ SMALLS = [
      "deck": "~100 states back binding rules; US, Russia, Israel opposed. "
              "(OneTurn/UN)",
      "art": "robots"},
-    {"n": "12", "city": "LIMA", "topic": "DISASTER",
-     "head": "6.7 quake shakes central Peru",
-     "deck": "No deaths reported; felt in Lima. (USGS)",
-     "art": "quake"},
+    {"n": "12", "city": "DARMSTADT, GERMANY", "topic": "SPACE",
+     "head": "BepiColombo reaches Mercury after 8 years",
+     "deck": "Orbit insertion confirmed; Sunday glitch reported; craft "
+             "safe. (Reuters)",
+     "art": "space"},
     {"n": "13", "city": "RAMALLAH", "topic": "WAR",
      "head": "Settlers torch vehicles in West Bank",
      "deck": "12 vehicles torched in four villages; inquiry opens. "
@@ -216,39 +232,39 @@ SMALLS = [
 # One-line briefs, numbers continuing from the 13 cards above.
 BRIEFS = [
     ("14", "JOHANNESBURG \u2014 G20 opens in Africa."),
-    ("15", "HORMUZ \u2014 Two tankers hit, attacker unknown."),
+    ("15", "HORMUZ \u2014 Tankers hit; attacker unknown."),
     ("16", "RIYADH \u2014 Coalition downs Houthi drone."),
     ("17", "GULF OF FINLAND \u2014 Russian ship burns."),
-    ("18", "BENGHAZI \u2014 Warship hit; Ukraine suspected."),
-    ("19", "KHARTOUM \u2014 Drones hit UN building; deaths."),
+    ("18", "BENGHAZI \u2014 Warship hit; Kyiv suspected."),
+    ("19", "KHARTOUM \u2014 UN building hit; deaths."),
     ("20", "WASHINGTON \u2014 FBI probes NCIC hack."),
     ("21", "PARMA \u2014 Three killed at baby shower."),
     ("22", "CIKANDE \u2014 Candy-factory fire; 36 missing."),
-    ("23", "BASRA \u2014 Power-station fire kills 4, hurts 35."),
+    ("23", "BASRA \u2014 Power-plant fire kills 4, hurts 35."),
     ("24", "TEHRAN \u2014 Iran begins electricity rationing."),
-    ("25", "TOKYO \u2014 China warns Japan on Taiwan remarks."),
+    ("25", "TOKYO \u2014 China warns Japan over Taiwan."),
     ("26", "SEOUL \u2014 Minister quits in AI exam scandal."),
     ("27", "HAITI \u2014 El Salvador to build three prisons."),
-    ("28", "DAVAO \u2014 Air Niugini lands safely; 146 aboard."),
+    ("28", "DAVAO \u2014 Air Niugini lands; 146 safe."),
     ("29", "S AFRICA \u2014 Ex-deputy president dies, 71."),
-    ("30", "WASHINGTON \u2014 Trump threatens AI-centre tax."),
+    ("30", "WASHINGTON \u2014 Trump vows AI-centre tax."),
     ("31", "GULF \u2014 US denies Iran downed an F-16."),
     ("32", "GAZA \u2014 Strikes go on; displaced protest."),
-    ("33", "ANTALYA \u2014 EU backs \u221225% buildings pact."),
+    ("33", "LIMA \u2014 6.7 quake, central Peru; no deaths."),
 ]
 
 DATE_CHECK = (
-    "First reported before Sunday, NOT Sunday\u2019s news: Shenzhen "
-    "summit \u00b7 UK\u2013EU reset deal \u00b7 Anthropic $83 IPO \u00b7 GTA VI "
+    "NOT Sunday\u2019s news \u2014 first reported earlier: Shenzhen "
+    "summit \u00b7 UK\u2013EU reset \u00b7 Anthropic $83 IPO \u00b7 GTA VI "
     "launch \u00b7 ICJ Myanmar verdict \u00b7 PIF tower hit (Thu) \u00b7 Kyiv "
-    "bridges strike (Fri) \u00b7 S&P correction (Fri) \u00b7 Kryvyi Rih "
-    "strike (Sat, 2 killed, 60 hurt)."
+    "bridges (Fri) \u00b7 S&P correction (Fri) \u00b7 Kryvyi Rih (Fri, 2 "
+    "killed, 58 hurt) \u00b7 EU\u2013Indonesia deal (Sat)."
 )
 
 FOOTER = (
     "Every story here happened, or was first reported, on Sunday 22 November 2026. "
     "Sources: AFP \u00b7 Reuters \u00b7 AP \u00b7 Dawn \u00b7 Al Jazeera \u00b7 "
-    "RBC-Ukraine \u00b7 ATP \u00b7 USGS"
+    "RBC-Ukraine \u00b7 ATP \u00b7 USGS \u00b7 ESA \u00b7 Finnhub"
 )
 
 # ---------------------------------------------------------------- banner art
@@ -489,6 +505,28 @@ def mini_quake(sh, box):
     d.rectangle([x, y + h - 4, x + w, y + h], fill=(96, 72, 46))
 
 
+def mini_space(sh, box):
+    """BepiColombo at Mercury: black space, cratered orange disc,
+    the probe with two solar wings crossing in front of it.
+    Everything stays inside the 40px art box (y..y+40)."""
+    x, y, w, h = box
+    d = sh.cv
+    d.rectangle([x, y, x + w, y + h], fill=(8, 8, 16))
+    sh.dots(box, [(14, 8, 1), (40, 14, 1), (120, 8, 1), (100, 30, 1),
+                  (30, 30, 1), (150, 30, 1)])
+    # Mercury, right side, cratered (44px disc, inside the box)
+    d.ellipse([x + 122, y + 2, x + 166, y + 38], fill=(198, 130, 60))
+    d.ellipse([x + 132, y + 8, x + 142, y + 18], fill=(160, 96, 44))
+    d.ellipse([x + 148, y + 20, x + 156, y + 28], fill=(160, 96, 44))
+    d.ellipse([x + 128, y + 24, x + 136, y + 32], fill=(170, 104, 48))
+    # probe body and solar wings, left of the planet
+    d.rectangle([x + 16, y + 12, x + 48, y + 26], fill=(200, 200, 210))
+    d.rectangle([x + 48, y + 16, x + 96, y + 22], fill=(36, 80, 164))
+    d.rectangle([x + 4, y + 16, x + 16, y + 22], fill=(36, 80, 164))
+    d.rectangle([x + 28, y + 26, x + 36, y + 34], fill=(200, 200, 210))
+    d.rectangle([x, y + h - 4, x + w, y + h], fill=(20, 16, 14))
+
+
 def mini_westbank(sh, box):
     """West Bank at night: dark street, two torched cars, flames,
     a house front behind them."""
@@ -534,7 +572,7 @@ def mini_sinaloa(sh, box):
 
 MINIS = {"bitcoin": mini_bitcoin, "chip": mini_chip, "card": mini_card,
          "protest": mini_protest, "tennis": mini_tennis,
-         "eu": mini_eu, "robots": mini_robots, "quake": mini_quake,
+         "eu": mini_eu, "robots": mini_robots, "space": mini_space,
          "westbank": mini_westbank, "sinaloa": mini_sinaloa}
 
 # ---------------------------------------------------------------- the map
@@ -564,7 +602,7 @@ PINS = [
     (9, 0.49, 0.23),   # Turin
     (10, 0.42, 0.18),  # Brussels
     (11, 0.45, 0.27),  # Geneva
-    (12, 0.19, 0.47),  # Peru, Lima
+    (12, 0.49, 0.08),  # BepiColombo, Darmstadt (ESOC)
     (13, 0.64, 0.32),  # Ramallah
 ]
 
@@ -594,8 +632,8 @@ def draw_map(sh, x, y, w, h):
     sh.text((x + 8, y + h - 14), "1 COP31 \u00b7 2 BAHRAIN \u00b7 3 DYMER "
             "\u00b7 4 CHAPO ISIDRO \u00b7 5 BITCOIN \u00b7 6 NVIDIA \u00b7 7 "
             "CARD CAP \u00b7 8 FRANCE \u00b7 9 TURIN \u00b7 10 BRUSSELS "
-            "\u00b7 11 GENEVA \u00b7 12 PERU \u00b7 13 RAMALLAH", "sans_b", 9,
-            (255, 255, 255))
+            "\u00b7 11 GENEVA \u00b7 12 BEPICOLOMBO \u00b7 13 RAMALLAH",
+            "sans_b", 9, (255, 255, 255))
 
 
 # ---------------------------------------------------------------- layout
@@ -669,13 +707,13 @@ def draw_briefs(sh, x, y, w, h):
     for i, (n, txt) in enumerate(BRIEFS):
         c, r = divmod(i, per)
         bx = x + 10 + c * col_w
-        by = y + 30 + r * 13
-        sh.text((bx, by), n + ".", "sans_b", 9, PAL["red"])
-        tw = sh.width(txt, "sans", 9)
+        by = y + 30 + r * 14
+        sh.text((bx, by), n + ".", "sans_b", 10, PAL["red"])
+        tw = sh.width(txt, "sans", 10)
         if tw > col_w - 18:
             sh.warns.append("BRIEF TOO WIDE %r (%dpx > %dpx)"
                             % (txt[:40], tw, col_w - 18))
-        sh.text((bx + 18, by), txt, "sans", 9, PAL["ink"])
+        sh.text((bx + 18, by), txt, "sans", 10, PAL["ink"])
 
 
 def build():
@@ -698,11 +736,11 @@ def build():
     draw_briefs(sh, MARGIN, top, PAGE_W - 2 * MARGIN, 96)
     top += 102
     sh.text((MARGIN, top), "MARKETS", "sans_b", 13, PAL["red"])
-    sh.text((MARGIN, top + 20), "Bitcoin low $55,252, then +8% to ~$59,952  "
-            "\u00b7  Nasdaq -5.3% Fri  \u00b7  S&P in correction",
+    sh.text((MARGIN, top + 20), "Bitcoin reclaims $60,000, closes $60,784  "
+            "\u00b7  Gold $3,515, worst week in 8 months  \u00b7  Brent $92.57",
             "sans_b", 12, PAL["ink"])
-    sh.text((MARGIN + 712, top + 20), "GOLD $4,100 \u00b7 OIL $63", "sans_b",
-            12, PAL["ink"])
+    sh.text((MARGIN + 712, top + 20), "GOLD $3,515 \u00b7 BRENT $92.57",
+            "sans_b", 12, PAL["ink"])
     sh.rule(MARGIN, PAGE_W - MARGIN, top + 38, 1, PAL["line"])
     top += 44
     sh.text((MARGIN, top), "DATE CHECK", "sans_b", 13, PAL["red"])
